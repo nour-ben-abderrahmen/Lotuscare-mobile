@@ -39,7 +39,7 @@ import com.mycompany.myapp.Services.UserService;
 /**
  * The user profile form
  *
- * @author Shai Almog
+ * @author NOUR
  */
 public class ProfileForm extends BaseForm {
 
