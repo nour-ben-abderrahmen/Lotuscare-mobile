@@ -6,9 +6,9 @@ package com.mycompany.myapp.Models;
 
 /**
  *
- * @author YOUSSEF
+ * @author NOUR
  */
-public class LoginResponse {
+public class LoginResponse {     
 
     private String status;
     private String message;

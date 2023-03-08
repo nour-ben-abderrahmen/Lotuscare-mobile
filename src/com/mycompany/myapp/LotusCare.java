@@ -14,7 +14,7 @@ import com.mycompany.myapp.Views.SignInForm;
 
 /**
  *
- * @author YOUSSEF
+ * @author NOUR
  */
 public class LotusCare {
         private Form current;

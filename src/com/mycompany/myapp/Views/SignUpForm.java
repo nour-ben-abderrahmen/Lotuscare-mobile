@@ -43,7 +43,7 @@ import com.mycompany.myapp.Services.UserService;
 /**
  * Signup UI
  *
- * @author Shai Almog
+ * @author NOUR
  */
 public class SignUpForm extends BaseForm {
 

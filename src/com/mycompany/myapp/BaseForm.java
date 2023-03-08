@@ -40,7 +40,7 @@ import com.mycompany.myapp.Views.SignInForm;
 /**
  * Base class for the forms with common functionality
  *
- * @author Shai Almog
+ * @author NOUR
  */
 public class BaseForm extends Form {
     UserService userService;
