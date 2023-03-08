@@ -36,7 +36,7 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.Services.UserService;
 import com.mycompany.myapp.Views.SignInForm;
-
+   
 /**
  * Base class for the forms with common functionality
  *
