@@ -89,7 +89,7 @@ public class SignInForm extends BaseForm {
                 ToastBar.showMessage(loginResponse.getMessage(), FontImage.MATERIAL_INFO);
             } else {
                 userService.saveConnectedUser(loginResponse.getUser());
-                new NewsfeedForm(res).show();
+                new AjouterPublicationForm(res).show();
             }
 
         });

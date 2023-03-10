@@ -14,41 +14,54 @@ import java.util.Date;
 public class Publication {
     
     private int id;
-    private String object,CodePub;
-    private String object2,ContenuPub;
+    private String CodePub;
+    private String ContenuPub;
+    private String UrlImagePub;
     private Date DatePub;
-    private String object3,UrlImagePub;
-
     public Publication() {
     }
-    
-    
-    
-    
-    
-    
-    
 
-    public Publication(int id, String object, String CodePub, String object2, String ContenuPub, Date DatePub, String object3, String UrlImagePub) {
+    public Publication(String CodePub, String ContenuPub) {
+        this.CodePub = CodePub;
+        this.ContenuPub = ContenuPub;
+    }
+
+    public Publication(int id, String CodePub, String ContenuPub) {
         this.id = id;
-        this.object = object;
         this.CodePub = CodePub;
-        this.object2 = object2;
         this.ContenuPub = ContenuPub;
+    }
+
+    
+    public Publication(int id, String CodePub, String ContenuPub, String UrlImagePub, Date DatePub) {
+        this.id = id;
+        this.CodePub = CodePub;
+        this.ContenuPub = ContenuPub;
+        this.UrlImagePub = UrlImagePub;
         this.DatePub = DatePub;
-        this.object3 = object3;
+    }
+
+    public Publication(String CodePub, String ContenuPub, String UrlImagePub, Date DatePub) {
+        this.CodePub = CodePub;
+        this.ContenuPub = ContenuPub;
+        this.UrlImagePub = UrlImagePub;
+        this.DatePub = DatePub;
+    }
+
+    public Publication(String CodePub, String ContenuPub, String UrlImagePub) {
+        this.CodePub = CodePub;
+        this.ContenuPub = ContenuPub;
         this.UrlImagePub = UrlImagePub;
     }
 
-    public Publication(String object, String CodePub, String object2, String ContenuPub, Date DatePub, String object3, String UrlImagePub) {
-        this.object = object;
+    public Publication(int id, String CodePub, String ContenuPub, String UrlImagePub) {
+        this.id = id;
         this.CodePub = CodePub;
-        this.object2 = object2;
         this.ContenuPub = ContenuPub;
-        this.DatePub = DatePub;
-        this.object3 = object3;
         this.UrlImagePub = UrlImagePub;
     }
+    
+    
 
     public int getId() {
         return id;
@@ -56,14 +69,6 @@ public class Publication {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getObject() {
-        return object;
-    }
-
-    public void setObject(String object) {
-        this.object = object;
     }
 
     public String getCodePub() {
@@ -74,20 +79,20 @@ public class Publication {
         this.CodePub = CodePub;
     }
 
-    public String getObject2() {
-        return object2;
-    }
-
-    public void setObject2(String object2) {
-        this.object2 = object2;
-    }
-
     public String getContenuPub() {
         return ContenuPub;
     }
 
     public void setContenuPub(String ContenuPub) {
         this.ContenuPub = ContenuPub;
+    }
+
+    public String getUrlImagePub() {
+        return UrlImagePub;
+    }
+
+    public void setUrlImagePub(String UrlImagePub) {
+        this.UrlImagePub = UrlImagePub;
     }
 
     public Date getDatePub() {
@@ -98,22 +103,11 @@ public class Publication {
         this.DatePub = DatePub;
     }
 
-    public String getObject3() {
-        return object3;
+    @Override
+    public String toString() {
+        return "Publication{" + "id=" + id + ", CodePub=" + CodePub + ", ContenuPub=" + ContenuPub + ", UrlImagePub=" + UrlImagePub + ", DatePub=" + DatePub + '}';
     }
 
-    public void setObject3(String object3) {
-        this.object3 = object3;
-    }
-
-    public String getUrlImagePub() {
-        return UrlImagePub;
-    }
-
-    public void setUrlImagePub(String UrlImagePub) {
-        this.UrlImagePub = UrlImagePub;
-    }
-    
     
     
 }
