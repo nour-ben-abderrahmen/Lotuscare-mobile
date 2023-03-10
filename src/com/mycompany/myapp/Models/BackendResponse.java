@@ -6,7 +6,7 @@ package com.mycompany.myapp.Models;
 
 /**
  *
- * @author NOUR  
+ * @author NOUR
  */
 public class BackendResponse {
 

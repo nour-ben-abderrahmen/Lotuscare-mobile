@@ -6,7 +6,7 @@ package com.mycompany.myapp.Models;
 
 /**
  *
- * @author NOUR  
+ * @author NOUR
  */
 public class Utilisateur {
 
@@ -18,6 +18,7 @@ public class Utilisateur {
     private String password;
     private String telephone;
     private String cin;
+    private int verified;
 
     private String image;
 
@@ -29,10 +30,11 @@ public class Utilisateur {
         password = "";
         telephone = "";
         cin = "";
+        verified = 0;
         image="";
     }
 
-    public Utilisateur(int id, String nom, String prenom, String email, String password, String telephone, String cin, String image) {
+    public Utilisateur(int id, String nom, String prenom, String email, String password, String telephone, String cin, int verified, String image) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -40,8 +42,11 @@ public class Utilisateur {
         this.password = password;
         this.telephone = telephone;
         this.cin = cin;
+        this.verified = verified;
         this.image = image;
     }
+
+
 
     public int getId() {
         return id;
@@ -107,9 +112,19 @@ public class Utilisateur {
         this.image = image;
     }
 
+    public int getVerified() {
+        return verified;
+    }
+
+    public void setVerified(int verified) {
+        this.verified = verified;
+    }
+
     @Override
     public String toString() {
-        return "Utilisateur{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", password=" + password + ", telephone=" + telephone + ", cin=" + cin + ", image=" + image + '}';
+        return "Utilisateur{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", password=" + password + ", telephone=" + telephone + ", cin=" + cin + ", verified=" + verified + ", image=" + image + '}';
     }
+
+
 
 }

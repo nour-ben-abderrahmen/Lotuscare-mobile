@@ -50,10 +50,12 @@ public class BaseForm extends Form {
 
     public BaseForm(Layout contentPaneLayout) {
         super(contentPaneLayout);
+        userService = new UserService();
     }
 
     public BaseForm(String title, Layout contentPaneLayout) {
         super(title, contentPaneLayout);
+        userService = new UserService();
     }
     
     

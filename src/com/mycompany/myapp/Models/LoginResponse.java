@@ -8,7 +8,7 @@ package com.mycompany.myapp.Models;
  *
  * @author NOUR
  */
-public class LoginResponse {     
+public class LoginResponse {
 
     private String status;
     private String message;

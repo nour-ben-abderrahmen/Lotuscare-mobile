@@ -30,7 +30,9 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.ActivateForm;
 import com.mycompany.myapp.BaseForm;
+import com.mycompany.myapp.Models.BackendResponse;
 import com.mycompany.myapp.Models.LoginResponse;
 import com.mycompany.myapp.Models.Utilisateur;
 import com.mycompany.myapp.NewsfeedForm;
@@ -58,7 +60,7 @@ public class SignInForm extends BaseForm {
         getTitleArea().setUIID("Container");
         setUIID("SignIn");
 
-        add(BorderLayout.NORTH, new Label( res.getImage("logo-lotus.png"), "LogoLabel"));
+        add(BorderLayout.NORTH, new Label(res.getImage("logo-lotus.png"), "LogoLabel"));
 
         TextField username = new TextField("", "Username", 20, TextField.ANY);
         TextField password = new TextField("", "Password", 20, TextField.PASSWORD);
@@ -89,7 +91,20 @@ public class SignInForm extends BaseForm {
                 ToastBar.showMessage(loginResponse.getMessage(), FontImage.MATERIAL_INFO);
             } else {
                 userService.saveConnectedUser(loginResponse.getUser());
-                new NewsfeedForm(res).show();
+                
+                if (loginResponse.getUser().getVerified() == 0) {
+                    BackendResponse response = userService.sendVerificationCode(loginResponse.getUser().getEmail());
+                    if(response.getStatus().equals("success")){
+                        ToastBar.showMessage(response.getMessage(), FontImage.MATERIAL_INFO);
+                        new ActivateForm(res).show();
+                    }else{
+                        ToastBar.showMessage("something wen wrong", FontImage.MATERIAL_INFO);
+                    }
+                    
+                } else {
+                    new NewsfeedForm(res).show();
+                }
+
             }
 
         });

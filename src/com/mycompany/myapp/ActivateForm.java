@@ -16,15 +16,15 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
 package com.mycompany.myapp;
-
 
 import com.codename1.components.FloatingHint;
 import com.codename1.components.SpanLabel;
+import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
@@ -33,6 +33,8 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.Models.BackendResponse;
+import com.mycompany.myapp.Services.UserService;
 
 /**
  * Account activation UI
@@ -41,8 +43,12 @@ import com.codename1.ui.util.Resources;
  */
 public class ActivateForm extends BaseForm {
 
+    UserService userService;
+
     public ActivateForm(Resources res) {
         super(new BorderLayout());
+        userService = new UserService();
+
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
         tb.setUIID("Container");
@@ -50,27 +56,27 @@ public class ActivateForm extends BaseForm {
         Form previous = Display.getInstance().getCurrent();
         tb.setBackCommand("", e -> previous.showBack());
         setUIID("Activate");
-        
-        add(BorderLayout.NORTH, 
+
+        add(BorderLayout.NORTH,
                 BoxLayout.encloseY(
                         new Label(res.getImage("smily.png"), "LogoLabel"),
                         new Label("Awsome Thanks!", "LogoLabel")
                 )
         );
-        
-        TextField code = new TextField("", "Enter Code", 20, TextField.PASSWORD);
-        code.setSingleLineTextArea(false);
-        
-        Button signUp = new Button("Sign Up");
+
+        TextField codeTextfield = new TextField("", "Enter Code", 20, TextField.PASSWORD);
+        codeTextfield.setSingleLineTextArea(false);
+
+        Button signUp = new Button("Validate");
         Button resend = new Button("Resend");
         resend.setUIID("CenterLink");
         Label alreadHaveAnAccount = new Label("Already have an account?");
         Button signIn = new Button("Sign In");
         signIn.addActionListener(e -> previous.showBack());
         signIn.setUIID("CenterLink");
-        
+
         Container content = BoxLayout.encloseY(
-                new FloatingHint(code),
+                new FloatingHint(codeTextfield),
                 createLineSeparator(),
                 new SpanLabel("We've sent the confirmation code to your email. Please check your inbox", "CenterLabel"),
                 resend,
@@ -80,7 +86,17 @@ public class ActivateForm extends BaseForm {
         content.setScrollableY(true);
         add(BorderLayout.SOUTH, content);
         signUp.requestFocus();
-        signUp.addActionListener(e -> new NewsfeedForm(res).show());
+        
+        signUp.addActionListener(e -> {
+            String code = codeTextfield.getText();
+            BackendResponse response = userService.verifyCode(code);
+            ToastBar.showMessage(response.getMessage(), FontImage.MATERIAL_INFO);
+
+            if (response.getStatus().equals("success")) {
+                new NewsfeedForm(res).show();
+            }
+            
+        });
     }
-    
+
 }

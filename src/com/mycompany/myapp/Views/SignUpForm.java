@@ -108,7 +108,7 @@ public class SignUpForm extends BaseForm {
             Utilisateur user = new Utilisateur(
                     0, nom.getText(), prenom.getText(),
                     email.getText(), password.getText(),
-                    telephone.getText(), cin.getText(),
+                    telephone.getText(), cin.getText(),0,
                     ""
             );
 

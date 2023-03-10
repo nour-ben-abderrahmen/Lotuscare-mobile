@@ -95,6 +95,9 @@ public class UserService {
         user.setPassword(userMap.get("password").toString());
         user.setTelephone(userMap.get("telephone").toString());
         user.setCin(userMap.get("cin").toString());
+
+        float verified = Float.parseFloat(userMap.get("verified").toString());
+        user.setVerified((int) verified);
         user.setImage(userMap.get("image").toString());
 
         return user;
@@ -105,7 +108,7 @@ public class UserService {
         LoginResponse loginRes = new LoginResponse();
         try {
             JSONParser parser = new JSONParser();
-            Map<String, Object> response = parser.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+            Map<String, Object> response = parser.parseJSON(new CharArrayReader(jsonText.toCharArray()));//convert jsonText of type string into real json
 
             loginRes.setStatus(response.get("status").toString());
             loginRes.setMessage(response.get("message").toString());
@@ -174,7 +177,7 @@ public class UserService {
                 req.removeResponseListener(this);
             }
         });
-        NetworkManager.getInstance().addToQueueAndWait(req);
+        NetworkManager.getInstance().addToQueueAndWait(req); //send request to symfony backend
         return loginResponse;
     }
 
@@ -205,11 +208,44 @@ public class UserService {
         return backendResponse;
     }
 
-    public void saveConnectedUser(Utilisateur u){
-        connectedUser = u;
+    public void saveConnectedUser(Utilisateur user) {
+        connectedUser = user;
     }
-    
-    public void logout(){
+
+    public void logout() {
         connectedUser = new Utilisateur();
+    }
+
+    public BackendResponse sendVerificationCode(String email) {
+        
+        String url = Statics.BASE_URL + "api/sendVerificationCode/"+email;
+        req = new ConnectionRequest();
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                backendResponse = parseBackendResponse(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return backendResponse;
+    }
+
+    public BackendResponse verifyCode(String code) {
+        String url = Statics.BASE_URL + "api/verifyCode/"+connectedUser.getEmail()+"/"+code;
+        req = new ConnectionRequest();
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                backendResponse = parseBackendResponse(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return backendResponse;
     }
 }
